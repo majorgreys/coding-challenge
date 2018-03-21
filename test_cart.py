@@ -2,6 +2,9 @@
 
 def test_display_cart():
     import cart as c
+    
+    
+    # Create application with databases
     product_database = { 
         1: c.Product(name="Black Jacobins", price_cents=20.00),
         2: c.Product(name="Freedom Is a Constant Struggle", price_cents=15.00)
@@ -12,7 +15,7 @@ def test_display_cart():
     } 
     application = c.Application(products=product_database,
                                         discounts=discount_database)
-    # simple example
+    # Simple example
     order = c.Order(line_items=[c.LineItem(product_id=1, quantity=1)],
                    discount_code=None)
     expected = """Your cart:
@@ -21,7 +24,8 @@ def test_display_cart():
 ---
 Total $20.00"""
     assert c.display_cart(application, order) == expected
-    # example with a discount
+    
+    # Example with a discount
     order = c.Order(
         line_items=[
             c.LineItem(product_id=1, quantity=1),
@@ -36,7 +40,8 @@ $10.00 (Original Price $20.00) for 1 copy of "Black Jacobins"
 ---
 Total $17.50"""
     assert c.display_cart(application, order) == expected
-    # example with a product_list discount
+
+    # Example with a product_list discount
     order = c.Order(
         line_items=[
             c.LineItem(product_id=1, quantity=1),
@@ -51,7 +56,8 @@ $15.00                         for 1 copy of "Freedom Is a Constant Struggle"
 ---
 Total $20.00"""
     assert c.display_cart(application, order) == expected
-    # example with a product_list discount on multiple quantities
+
+    # Extra: Example with a product_list discount on multiple quantities
     order = c.Order(
         line_items=[
             c.LineItem(product_id=1, quantity=2),

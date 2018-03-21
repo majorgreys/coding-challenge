@@ -24,3 +24,9 @@ I liberally made use of list comprehensions here as a way to code in Python in a
 more functional style. I generally find them easier to read but they do present
 problems for debugging in Python and other programmers might not agree they are
 as readable as for loops.
+
+The test cases reproduce the examples in the challenge description. I have added
+one more test case for the case where a product discount must be applied to
+multiple quantities of a product. I have assumed the cart display should include
+the total original sum of the quanitities for that item (e.g., \$40 in this case
+rather than \$20). 
