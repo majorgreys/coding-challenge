@@ -58,7 +58,8 @@ def format_itemprice(itemprice, discount_code):
 def apply_product_discount(lineitem, discount, price):
     """ Apply the discount for a product if applicable. """
     if lineitem.product_id in discount.product_ids:
-        return price * (1.0 - (discount.percentage / 100))
+        # Round to cents
+        return round(price * (1.0 - (discount.percentage / 100)), 2)
     else:
         return price
     
@@ -69,7 +70,8 @@ def apply_discount(discount, itemprices):
         return [
             ItemPrice(lineitem=p.lineitem,
                       product=p.product,
-                      price=p.price * (1.0 - (discount.percentage / 100)))
+                      # Round to cents per item even though full order is discounted
+                      price=round(p.price * (1.0 - (discount.percentage / 100)), 2))
             for p in itemprices
         ]
     elif discount and discount.type == 'product_list':
